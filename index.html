@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>P(x) Calculator</title>
+    </head>
+    <body>
+        <div class="heading">
+            <h1>P(x) Calculator</h1>
+            <div id="info_ver">
+                <h3>Test Version 1.0</h3>
+                <p>This is the first test version of the P(x) calculator</p>
+                <h4>Features Included in this Version:</h4>
+                <div id="feature_list">
+                    <ul>
+                        <li>Polynomials ax3</li>
+                        <li>Finding Factors automatically</li>
+                        <li>Finding Solutions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="application">
+            <h2>P(x) Calculator</h2>
+            <div class="entr-values">
+                <h3>Enter Values for Polynomial</h3>
+
+                <div class="lead-term">
+                    <select id="1st_option">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                    </select>
+                    <input id="lead_trm" type="number"> 
+                    <p>x3</p>
+                </div>
+                
+                <div class="second-term">
+                    <select id="2nd_option">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                    </select>
+                    <input id="sec_term" type="number">
+                    <p>x2</p>
+                </div>
+                
+                <div class ="third-term">
+                    <select id="3rd_option">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                    </select>
+                    <input id="thrd_term" type="number">
+                    <p>x</p>
+                </div>
+                
+                <div class="last-term">
+                    <select id="4th_option">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                    </select>
+                    <input id="last_term" type="number">
+                </div>
+
+                <button type="button" class="sub-poly">Submit Polynomial</button>
+
+            </div>
+        </div>
+        <script src="app.js"></script>
+    </body>
+</html>
