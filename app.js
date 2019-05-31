@@ -1,5 +1,4 @@
 var UIController = (function() {
-    // Get Input Values
 
     var DOMitems = {
         firstOption: '1st_option',
@@ -40,25 +39,6 @@ var UIController = (function() {
 
 var dataController = (function() {
     // Add new input values to data
-
-    // If factor store data
-})();
-
-var calculationsController = (function() {
-    // Test Constant term to find possible factors
-
-    // Test Constant term factors in P(x)
-})();
-
-var controller = (function(UICtrl, dataCrtl, calcCtrl) {
-
-    var setupEventListeners = function() {
-        var DOM = UICtrl.getDOMitems();
-        
-        document.querySelector(DOM.subBtn).addEventListener('click', createTerms);
-        
-    };
-
     var Term = function(posOrNeg ,coe, power) {
         this.posOrNeg = posOrNeg;
         this.coe = coe;
@@ -72,37 +52,68 @@ var controller = (function(UICtrl, dataCrtl, calcCtrl) {
             this.fullTerm = ' ' + this.posOrNeg + this.coe + '(x)' + this.power;
         }
     };
-    
 
-    var createTerms = function() {
-        var getInput = UICtrl.getInput();
-        
-        var firstTerm = new Term(getInput.firstOption, getInput.leadTerm, 3);
-        firstTerm.checkPower();
-        console.log(firstTerm);
 
-        var secondTerm = new Term(getInput.secondOption, getInput.secTerm, 2);
-        secondTerm.checkPower();
-        console.log(secondTerm);
+    return {
+        createTerms: function() {
 
-        var thirdTerm = new Term(getInput.thirdOption, getInput.thrdTerm, 1);
-        thirdTerm.checkPower();
-        console.log(thirdTerm);
+            var getInput = UIController.getInput();
 
-        var lastTerm = new Term(getInput.lastOption, getInput.lastTerm, 0);
-        lastTerm.checkPower();
+            // Creation of these terms could be moved to a private method
+            // Leaving behinde the polynomial and csntTrmFactors 
+            var firstTerm = new Term(getInput.firstOption, getInput.leadTerm, 3);
+            firstTerm.checkPower();
+            //console.log(firstTerm);
 
-        var polynomial = firstTerm.fullTerm + secondTerm.fullTerm + thirdTerm.fullTerm + lastTerm.fullTerm;
-        console.log(polynomial);
+            var secondTerm = new Term(getInput.secondOption, getInput.secTerm, 2);
+            secondTerm.checkPower();
+            //console.log(secondTerm);
 
-        
-        // TO-DO 
-        // 1. Move createTerms to dataController
-        // 3. Create string containing full P(x)
+            var thirdTerm = new Term(getInput.thirdOption, getInput.thrdTerm, 1);
+            thirdTerm.checkPower();
+            //console.log(thirdTerm);
 
+            var lastTerm = new Term(getInput.lastOption, getInput.lastTerm, 0);
+            lastTerm.checkPower();
+
+            var polynomial = firstTerm.fullTerm + secondTerm.fullTerm + thirdTerm.fullTerm + lastTerm.fullTerm;
+            console.log(polynomial);
+            calculationsController.constantTermFactors(getInput.lastTerm);
+        }
     };
 
+    // If factor store data
+})();
 
+var calculationsController = function() {
+    
+    return {
+        // Method needs to be adjusted to accomodate for -ve values
+        constantTermFactors: function(k) {
+            for (var i = 0; i <= k; i++) {
+                if (k % i === 0) {
+                    console.log(i);
+                }
+            }
+        }
+    };
+
+}();
+
+var controller = (function(UICtrl, dataCrtl, calcCtrl) {
+
+    var setupEventListeners = function() {
+        var DOM = UICtrl.getDOMitems();
+        
+        document.querySelector(DOM.subBtn).addEventListener('click', createTerms);
+        document.querySelector(DOM.subBtn).addEventListener('click', cnstTrmFactors);
+        
+        
+    };
+
+    var cnstTrmFactors  = calcCtrl.constantTermFactors;
+    var createTerms = dataCrtl.createTerms;
+    
 
     return {
         init: function() {
