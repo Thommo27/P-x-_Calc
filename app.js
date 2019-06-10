@@ -28,12 +28,12 @@ var UIController = (function() {
                 lastTerm: document.getElementById(DOMitems.lastTerm).value
             };
         },
-        
+
         getDOMitems: function() {
             return DOMitems;
         }
     };
-    
+
     // Add new items to UI
 })();
 
@@ -66,7 +66,7 @@ var dataController = (function() {
             var getInput = UIController.getInput();
 
             // Creation of these terms could be moved to a private method
-            // Leaving behinde the polynomial and csntTrmFactors 
+            // Leaving behinde the polynomial and csntTrmFactors
 
             var firstTerm = new Term(getInput.firstOption, getInput.leadTerm, 3);
 
@@ -104,7 +104,7 @@ var dataController = (function() {
 })();
 
 var calculationsController = function() {
-    
+
     return {
         constantTermFactors: function(k) {
             var factList = [];
@@ -112,24 +112,32 @@ var calculationsController = function() {
                 if (k % i === 0) {
                     factList.push(-i);
                     factList.push(i);
-                }  
+                }
             }
             console.log(factList);
 
             return function(t1, t2, t3, t4) {
+              var workingOut, solution;
                 var list = factList;
                 for (var i = 0; i < list.length; i++) {
                     var x = list[i];
                     var testingTerms = (t1 * Math.pow(x, 3)) + (t2 * Math.pow(x, 2)) + (t3 * Math.pow(x, 1)) + parseInt(t4); // t4 a string before this point, need to fix
                     if (testingTerms == 0) {
-                        console.log('P(' + x + ')' + ' = ' + t1 + '(' + x + ')3 ' + t2 + '(' + x + ')2 ' + t3 + '(' + x + ') ' + t4 + ' = 0');
-                        console.log('Therefore: (x' + x + ') is a factor');
+                        workingOut = 'P(' + x + ')' + ' = ' + t1 + '(' + x + ')3 ' + t2 + '(' + x + ')2 ' + t3 + '(' + x + ') ' + t4 + ' = 0';
+                        solution = 'Therefore: (x' + '+' + (-x) + ') is a factor';
+                        console.log(workingOut);
+                        console.log(solution);
+
+                        // for testing purposes should move to another controller
+                        // Place in for loop to display on different lines
+                        document.getElementById("working__out").innerHTML = workingOut;
+                        document.getElementById("factors").innerHTML = solution;
                     }
-                } 
+                }
             };
-            
+
         },
-        
+
     };
 }();
 
@@ -137,12 +145,12 @@ var controller = (function(UICtrl, dataCrtl, calcCtrl) {
 
     var setupEventListeners = function() {
         var DOM = UICtrl.getDOMitems();
-        
-        document.querySelector(DOM.subBtn).addEventListener('click', createTerms);   
+
+        document.querySelector(DOM.subBtn).addEventListener('click', createTerms);
     };
 
     var createTerms = dataCrtl.createTerms;
-    
+
     return {
         init: function() {
             setupEventListeners();
@@ -152,4 +160,3 @@ var controller = (function(UICtrl, dataCrtl, calcCtrl) {
 })(UIController, dataController, calculationsController);
 
 controller.init();
-
